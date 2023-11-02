@@ -2,7 +2,7 @@
 
 This repository provides a robust solution for managing real estate properties. It includes a user-friendly Flutter application for property entry and listing, along with a Python service to ensure the accuracy and normalization of location data.
 
-## Python Backend Service
+## Address Normalization Service
 
 This is the backend component of the Real Estate Management System, which includes API endpoints for handling property information and integrating with a third-party API to manage country and region data. Follow the instructions below to set up and run the backend server.
 
