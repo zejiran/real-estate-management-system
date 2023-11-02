@@ -4,7 +4,17 @@ This repository provides a robust solution for managing real estate properties. 
 
 ## Property Management Application
 
-TODO
+The Property Management Application is a user-friendly Flutter app that allows users to add, edit, and list various properties. It provides a simple interface to input property details such as name, address, type, and an image URL. The application ensures a seamless property management experience for real estate professionals and property owners alike.
+
+### Running the Flutter App
+
+To run the Flutter application on a web browser, use the following command:
+
+```bash
+flutter run -d web-server
+```
+
+This command will start the Flutter application on a local development server, allowing you to access and interact with the application through your web browser.
 
 ## Address Normalization Service
 
