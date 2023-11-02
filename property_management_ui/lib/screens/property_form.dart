@@ -3,7 +3,7 @@ import 'package:property_management_ui/models/property.dart';
 import 'package:property_management_ui/services/local_storage_service.dart';
 
 class PropertyForm extends StatefulWidget {
-  const PropertyForm({super.key});
+  const PropertyForm({Key? key}) : super(key: key);
 
   @override
   State<PropertyForm> createState() => _PropertyFormState();
@@ -36,63 +36,72 @@ class _PropertyFormState extends State<PropertyForm> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final horizontalPadding = screenWidth * 0.2; // 20% of the screen width
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Property'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Property Name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the property name';
-                  }
-                  return null;
-                },
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  TextFormField(
+                    controller: _nameController,
+                    decoration:
+                        const InputDecoration(labelText: 'Property Name'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the property name';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _addressController,
+                    decoration: const InputDecoration(labelText: 'Address'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the property address';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _typeController,
+                    decoration:
+                        const InputDecoration(labelText: 'Property Type'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the property type';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _imageController,
+                    decoration: const InputDecoration(labelText: 'Image URL'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the image URL';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _saveProperty,
+                    child: const Text('Save Property'),
+                  ),
+                ],
               ),
-              TextFormField(
-                controller: _addressController,
-                decoration: const InputDecoration(labelText: 'Address'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the property address';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _typeController,
-                decoration: const InputDecoration(labelText: 'Property Type'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the property type';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _imageController,
-                decoration: const InputDecoration(labelText: 'Image URL'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter the image URL';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _saveProperty,
-                child: const Text('Save Property'),
-              ),
-            ],
+            ),
           ),
         ),
       ),
