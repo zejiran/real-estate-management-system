@@ -60,11 +60,16 @@ class _PropertyListState extends State<PropertyList> {
                           child: ListView.builder(
                             itemCount: (properties.length / 2).ceil(),
                             itemBuilder: (BuildContext context, int index) {
-                              return _buildPropertyItem(
-                                context,
-                                properties[
-                                    index + (properties.length / 2).ceil()],
-                              );
+                              final itemIndex =
+                                  index + (properties.length / 2).ceil();
+                              if (itemIndex < properties.length) {
+                                return _buildPropertyItem(
+                                  context,
+                                  properties[itemIndex],
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
                             },
                           ),
                         ),
