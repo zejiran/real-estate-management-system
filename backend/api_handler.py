@@ -34,6 +34,10 @@ def get_countries():
         return jsonify(filtered_countries)
 
 
+def similarity(a, b):
+    return SequenceMatcher(None, a.lower(), b.lower()).ratio()
+
+
 def fetch_countries():
     url = f"{BASE_URL}/countries/"
     headers = {
@@ -42,10 +46,6 @@ def fetch_countries():
     }
     response = requests.get(url, headers=headers)
     return response.json()
-
-
-def similarity(a, b):
-    return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
 
 def fetch_regions(country_name):
