@@ -31,6 +31,7 @@ class _PropertyFormState extends State<PropertyForm> {
       _imageController.clear();
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Property saved')));
+      Navigator.pop(context);
     }
   }
 
@@ -95,9 +96,18 @@ class _PropertyFormState extends State<PropertyForm> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
+                  ElevatedButton.icon(
                     onPressed: _saveProperty,
-                    child: const Text('Save Property'),
+                    icon: const Icon(Icons.save),
+                    label: const Text('Save Property'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue, // Background color
+                      foregroundColor: Colors.white, // Text color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.all(16.0),
+                    ),
                   ),
                 ],
               ),
