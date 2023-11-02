@@ -42,10 +42,42 @@ class _PropertyListState extends State<PropertyList> {
                 child: Text('No properties added yet'),
               );
             } else {
-              return ListView.builder(
-                itemCount: properties.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return _buildPropertyItem(properties[index]);
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth > 600) {
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: (properties.length / 2).ceil(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return _buildPropertyItem(
+                                  context, properties[index]);
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: (properties.length / 2).ceil(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return _buildPropertyItem(
+                                context,
+                                properties[
+                                    index + (properties.length / 2).ceil()],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return ListView.builder(
+                      itemCount: properties.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _buildPropertyItem(context, properties[index]);
+                      },
+                    );
+                  }
                 },
               );
             }
@@ -55,7 +87,10 @@ class _PropertyListState extends State<PropertyList> {
     );
   }
 
-  Widget _buildPropertyItem(Property property) {
+  Widget _buildPropertyItem(BuildContext context, Property property) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final imageWidth = screenWidth > 600 ? screenWidth / 4 : screenWidth * 0.2;
+
     return Card(
       child: Container(
         padding: const EdgeInsets.all(16.0),
@@ -65,16 +100,16 @@ class _PropertyListState extends State<PropertyList> {
               borderRadius: BorderRadius.circular(25),
               child: Image.network(
                 property.image,
-                width: 200,
-                height: 200,
-                fit: BoxFit.fitHeight,
+                width: imageWidth,
+                height: imageWidth,
+                fit: BoxFit.cover,
                 errorBuilder: (BuildContext context, Object error,
                     StackTrace? stackTrace) {
                   return Image.network(
                     'https://picsum.photos/300',
-                    width: 200,
-                    height: 200,
-                    fit: BoxFit.fitHeight,
+                    width: imageWidth,
+                    height: imageWidth,
+                    fit: BoxFit.cover,
                   );
                 },
                 loadingBuilder: (BuildContext context, Widget child,
@@ -91,7 +126,7 @@ class _PropertyListState extends State<PropertyList> {
                 },
               ),
             ),
-            const SizedBox(width: 50),
+            const SizedBox(width: 30),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
