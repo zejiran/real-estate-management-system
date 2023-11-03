@@ -1,12 +1,16 @@
-name: Flutter Web
+name: Flutter
 on:
   push:
     branches:
       - master
+
 jobs:
   build:
     name: Build Web
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./property_management_ui
     steps:
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
@@ -26,3 +30,17 @@ jobs:
           git add --all
           git commit -m "CI: update flutter web deploy"
           git push origin gh-pages -f
+
+  flutter_test:
+    name: Flutter Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./property_management_ui
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '2.x'
+      - run: flutter pub get
+      - run: flutter test test/property_test.dart
