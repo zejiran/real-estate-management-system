@@ -1,0 +1,28 @@
+name: Flutter Web
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Build Web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'dev'
+      - run: flutter config --enable-web
+      - run: flutter pub get
+      - run: flutter build web --release
+      - run: |
+          cd build/web
+          git init
+          git config --global user.email ${{secrets.user_email}}
+          git config --global user.name ${{secrets.user_name}}
+          git status
+          git remote add origin https://${{secrets.commit_secret}}@github.com/zejiran/real-estate-management-system.git
+          git checkout -b gh-pages
+          git add --all
+          git commit -m "CI: update flutter web deploy"
+          git push origin gh-pages -f
