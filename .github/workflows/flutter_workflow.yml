@@ -12,13 +12,13 @@ jobs:
       run:
         working-directory: ./property_management_ui
     steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
         with:
-          channel: 'dev'
+          channel: 'stable'
       - run: flutter config --enable-web
       - run: flutter pub get
-      - run: flutter build web --release
+      - run: flutter build web --release --base-href="/real-estate-management-system/"
       - run: |
           cd build/web
           git init
@@ -38,9 +38,9 @@ jobs:
       run:
         working-directory: ./property_management_ui
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '2.x'
+          channel: 'stable'
       - run: flutter pub get
       - run: flutter test test/property_test.dart
